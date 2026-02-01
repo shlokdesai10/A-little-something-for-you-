@@ -1,8 +1,3 @@
-// ===== MODAL + MUSIC REFERENCES (IMPORTANT) =====
-const modal = document.getElementById("yesModal");
-const bgMusic = document.getElementById("bgMusic");
-
-// ===== TYPEWRITER TEXT =====
 const text = `
 Hey Khushi Mandeep Desai 🤍
 
@@ -39,10 +34,8 @@ function typeText() {
     showProgress();
   }
 }
-
 typeText();
 
-// ===== PROGRESS BAR =====
 function showProgress() {
   document.getElementById("progressBox").classList.remove("hidden");
 
@@ -66,7 +59,7 @@ function showFinal() {
   document.getElementById("final").classList.remove("hidden");
 }
 
-// ===== FLOATING HEARTS =====
+/* ❤️ Hearts */
 const heartsContainer = document.querySelector(".hearts");
 
 function createHeart() {
@@ -79,34 +72,45 @@ function createHeart() {
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.fontSize = 16 + Math.random() * 20 + "px";
   heart.style.opacity = 0.8 + Math.random() * 0.2;
-  heart.style.transform = `rotate(${Math.random() * 40 - 20}deg)`;
   heart.style.animationDuration = 6 + Math.random() * 4 + "s";
 
   heartsContainer.appendChild(heart);
-
   setTimeout(() => heart.remove(), 10000);
 }
-
 setInterval(createHeart, 600);
 
-// ===== SPARKLES =====
-const sparkleContainer = document.createElement("div");
-sparkleContainer.className = "hearts";
-document.body.appendChild(sparkleContainer);
+/* 💬 BUTTON HANDLER */
+function sendResponse(choice) {
+  const input = document.getElementById("formInput");
+  const form = document.getElementById("googleForm");
 
-for (let i = 0; i < 25; i++) {
-  const sparkle = document.createElement("div");
-  sparkle.className = "sparkle";
-  sparkle.style.top = Math.random() * 100 + "vh";
-  sparkle.style.left = Math.random() * 100 + "vw";
-  sparkle.style.animationDuration = 1 + Math.random() * 2 + "s";
-  sparkleContainer.appendChild(sparkle);
+  input.value = choice;
+  form.submit();
+
+  if (choice.includes("Yes")) {
+    setTimeout(() => {
+      openYesModal();
+      startPetals();
+
+      const music = document.getElementById("bgMusic");
+      music.volume = 0.3;
+      music.currentTime = 0;
+      music.play().catch(() => {});
+    }, 500);
+  } else {
+    document.getElementById("response").innerText =
+      "That’s okay 🤍 Take all the time you need.";
+  }
+
+  document.querySelectorAll(".choice-btn").forEach(btn => {
+    btn.disabled = true;
+    btn.style.opacity = "0.6";
+  });
 }
 
-// ===== PETALS =====
+/* 🌸 PETALS */
 function startPetals() {
   const container = document.getElementById("petals-container");
-  container.innerHTML = "";
 
   for (let i = 0; i < 25; i++) {
     const petal = document.createElement("div");
@@ -119,50 +123,23 @@ function startPetals() {
   }
 }
 
-// ===== MAIN BUTTON HANDLER =====
-function sendResponse(choice) {
-  console.log("Button clicked:", choice);
-
-  // Google Form submit
-  const input = document.getElementById("formInput");
-  const form = document.getElementById("googleForm");
-  input.value = choice;
-  form.submit();
-
-  if (choice.includes("Yes")) {
-    modal.classList.add("show");
-    startPetals();
-
-    bgMusic.currentTime = 0;
-    bgMusic.volume = 0.3;
-    bgMusic.play().catch(() => {});
-  } else {
-    document.getElementById("response").innerText =
-      "That’s okay 🤍 Take all the time you need.";
-  }
-
-  document.querySelectorAll(".choice-btn").forEach(btn => {
-    btn.disabled = true;
-    btn.style.opacity = "0.6";
-  });
+/* ✅ MODAL CONTROL */
+function openYesModal() {
+  const modal = document.getElementById("yesModal");
+  modal.classList.add("show");
 }
 
-// ===== CLOSE MODAL =====
 function closeModal() {
+  const modal = document.getElementById("yesModal");
   modal.classList.remove("show");
-
-  bgMusic.pause();
-  bgMusic.currentTime = 0;
-
-  document.querySelectorAll(".choice-btn").forEach(btn => {
-    btn.disabled = false;
-    btn.style.opacity = "1";
-  });
 }
 
-// ===== CLICK OUTSIDE TO CLOSE =====
+/* Close when clicking outside */
 function forceClose(e) {
   if (e.target.id === "yesModal") {
     closeModal();
   }
 }
+
+/* Close button (×) */
+document.getElementById("closeModalBtn").addEventListener("click", closeModal);
