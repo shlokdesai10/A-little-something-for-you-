@@ -1,3 +1,6 @@
+const modal = document.getElementById("yesModal");
+const bgMusic = document.getElementById("bgMusic");
+
 const text = `
 Hey Khushi Mandeep Desai 🤍
 
@@ -125,18 +128,36 @@ function startPetals() {
 
 /* ✅ MODAL CONTROL */
 function openYesModal() {
-  const modal = document.getElementById("yesModal");
   modal.classList.add("show");
+
+  bgMusic.currentTime = 0;
+  bgMusic.volume = 0.4;
+  bgMusic.play().catch(() => {});
 }
+
 
 function closeModal() {
-  const modal = document.getElementById("yesModal");
+  // hide modal
   modal.classList.remove("show");
-}
 
-// Close when clicking outside modal content
-document.getElementById("yesModal").addEventListener("click", (e) => {
-  if (e.target.id === "yesModal") {
+  // stop music
+  bgMusic.pause();
+  bgMusic.currentTime = 0;
+
+  // reset petals
+  const petals = document.getElementById("petals-container");
+  if (petals) petals.innerHTML = "";
+
+  // re-enable buttons
+  document.querySelectorAll(".choice-btn").forEach(btn => {
+    btn.disabled = false;
+    btn.style.opacity = "1";
+    btn.style.cursor = "pointer";
+  });
+}
+// Close when clicking outside modal
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
     closeModal();
   }
 });
