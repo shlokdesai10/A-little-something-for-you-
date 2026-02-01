@@ -196,6 +196,8 @@ function forceClose(e) {
   }
 }
 function handleYesClick() {
-  openYesModal();              // open modal + play music
-  sendResponse("Yes 💗");      // send Google Form response
+  console.log("YES clicked");
+
+  openYesModal();
+  sendResponse("Yes 💗");
 }
