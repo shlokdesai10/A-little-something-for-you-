@@ -134,12 +134,12 @@ function closeModal() {
   modal.classList.remove("show");
 }
 
-/* Close when clicking outside */
-function forceClose(e) {
+// Close when clicking outside modal content
+document.getElementById("yesModal").addEventListener("click", (e) => {
   if (e.target.id === "yesModal") {
     closeModal();
   }
-}
+});
 
-/* Close button (×) */
+// Close button
 document.getElementById("closeModalBtn").addEventListener("click", closeModal);
