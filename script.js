@@ -1,22 +1,3 @@
-function sendResponse(choice) {
-  console.log("Clicked:", choice);
-
-  // Google Form
-  const input = document.getElementById("formInput");
-  const form = document.getElementById("googleForm");
-
-  input.value = choice;
-  form.submit();
-
-  // YES logic
-  if (choice.includes("Yes")) {
-    openYesModal();
-  } else {
-    document.getElementById("response").innerText =
-      "That’s okay 🤍 Take all the time you need.";
-  }
-}
-
 const text = `
 Hey Khushi Mandeep Desai 🤍
 
@@ -81,15 +62,6 @@ function showFinal() {
   document.getElementById("final").classList.remove("hidden");
 }
 
-function yesAnswer() {
-  document.getElementById("response").innerText =
-    "That really means a lot to me 💛 I’m glad we’re choosing this together.";
-}
-
-function noAnswer() {
-  document.getElementById("response").innerText =
-    "Thank you for being honest. I respect you and your feelings completely.";
-}
 const heartsContainer = document.querySelector(".hearts");
 
 function createHeart() {
@@ -139,25 +111,36 @@ function showButtons() {
   document.querySelector(".buttons").style.display = "flex";
 }
 function sendResponse(choice) {
+  console.log("Button clicked:", choice);
+
   const input = document.getElementById("formInput");
   const form = document.getElementById("googleForm");
 
   input.value = choice;
   form.submit();
 
-  // If YES → show bouquet modal
- if (choice.includes("Yes")) {
-  setTimeout(() => {
-    document.getElementById("yesModal").classList.add("show");
-    startPetals();
+  if (choice.includes("Yes")) {
+    setTimeout(() => {
+      openYesModal();
+      startPetals();
 
-    const music = document.getElementById("bgMusic");
-    music.volume = 0.3;   // soft volume
-    music.play().catch(() => {});
-  }, 600);
+      const music = document.getElementById("bgMusic");
+      music.volume = 0.3;
+      music.currentTime = 0;
+      music.play().catch(() => {});
+    }, 600);
+  } else {
+    document.getElementById("response").innerText =
+      "That’s okay 🤍 Take all the time you need.";
+  }
+
+  // disable choice buttons
+  document.querySelectorAll(".choice-btn").forEach(btn => {
+    btn.disabled = true;
+    btn.style.opacity = "0.6";
+    btn.style.cursor = "not-allowed";
+  });
 }
-  const modal = document.getElementById("yesModal");
-const bgMusic = document.getElementById("bgMusic");
 
 // OPEN modal
 function openYesModal() {
