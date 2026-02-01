@@ -1,3 +1,22 @@
+function sendResponse(choice) {
+  console.log("Clicked:", choice);
+
+  // Google Form
+  const input = document.getElementById("formInput");
+  const form = document.getElementById("googleForm");
+
+  input.value = choice;
+  form.submit();
+
+  // YES logic
+  if (choice.includes("Yes")) {
+    openYesModal();
+  } else {
+    document.getElementById("response").innerText =
+      "That’s okay 🤍 Take all the time you need.";
+  }
+}
+
 const text = `
 Hey Khushi Mandeep Desai 🤍
 
