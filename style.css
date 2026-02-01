@@ -333,3 +333,7 @@ button:active {
 .close-btn:active {
   transform: scale(0.9);
 }
+.hearts,
+#petals-container {
+  pointer-events: none;
+}
