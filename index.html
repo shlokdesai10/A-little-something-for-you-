@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>A little something for you 💛</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <audio id="bgMusic" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+<div id="petals-container"></div>
+
+<div id="yesModal" class="modal">
+
+  <div class="modal-content">
+<button class="close-btn" onclick="closeYesModal()">×</button>
+   <img src="bouquet.png" alt="Bouquet" class="bouquet-img">
+    <h2>You just made my heart very happy</h2>
+    <p>
+      Thank you for choosing us, for choosing me.  
+      I promise to keep choosing you — softly, honestly, and with a whole lot of love 🤍
+    </p>
+    <button class="smile-btn">I can’t stop smiling 🥺</button>
+
+  </div>
+</div>
+<div class="hearts"></div>
+<div class="card">
+  <div id="typewriter"></div>
+
+  <div id="progressBox" class="hidden">
+    <p>Loading courage… <span id="percent">0%</span></p>
+    <div class="bar">
+      <div id="fill"></div>
+    </div>
+  </div>
+
+  <div id="final" class="hidden">
+    <p class="ask">Okay. Here it is.</p>
+    <p class="ask bold">“Would you like to be in a relationship with me?”</p>
+
+    <div class="buttons">
+     <button class="choice-btn" onclick="handleYesClick()">
+  Yes 💗
+</button>
+<button class="choice-btn" onclick="sendResponse('Not right now')">Not right now</button>
+
+
+
+    <div id="response"></div>
+  </div>
+</div>
+<form 
+  id="googleForm"
+  action="https://docs.google.com/forms/d/e/1FAIpQLScnB8b6X8FW8VLtwzVdsvFfyfEUy-DxZlGZR2FF-yey0dPHuw/formResponse"
+  method="POST"
+  target="hidden_iframe"
+  style="position:absolute; left:-9999px; top:-9999px; opacity:0;"
+>
+  <input 
+    type="text" 
+    name="entry.2013613731" 
+    id="formInput"
+    tabindex="-1"
+    autocomplete="off"
+  >
+</form>
+  
+<iframe name="hidden_iframe" style="display:none;"></iframe>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>

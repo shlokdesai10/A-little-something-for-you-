@@ -1,0 +1,201 @@
+const text = `
+Hey Khushi Mandeep Desai 🤍
+
+There’s something about you that has always stayed with me.
+The way your hair looks when you smile,
+the way your eyes quietly say so much without trying
+it’s honestly beautiful.
+
+You have this softness,
+but also a strength that not everyone notices.
+Being around you just feels calm,
+like things make a little more sense.
+
+I’ve made mistakes before,
+but my feelings for you were never one of them.
+
+So I just wanted to ask you something
+not in a dramatic way,
+not in a rushed way…
+
+But from my heart.
+
+`;
+
+
+let i = 0;
+const speed = 30;
+const tw = document.getElementById("typewriter");
+
+function typeText() {
+  if (i < text.length) {
+    tw.innerHTML += text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
+    i++;
+    setTimeout(typeText, speed);
+  } else {
+    showProgress();
+  }
+}
+
+typeText();
+
+function showProgress() {
+  document.getElementById("progressBox").classList.remove("hidden");
+
+  let p = 0;
+  const fill = document.getElementById("fill");
+  const percent = document.getElementById("percent");
+
+  const interval = setInterval(() => {
+    p++;
+    fill.style.width = p + "%";
+    percent.innerText = p + "%";
+
+    if (p === 100) {
+      clearInterval(interval);
+      showFinal();
+    }
+  }, 25);
+}
+
+function showFinal() {
+  document.getElementById("final").classList.remove("hidden");
+}
+
+function yesAnswer() {
+  document.getElementById("response").innerText =
+    "That really means a lot to me 💛 I’m glad we’re choosing this together.";
+}
+
+function noAnswer() {
+  document.getElementById("response").innerText =
+    "Thank you for being honest. I respect you and your feelings completely.";
+}
+const heartsContainer = document.querySelector(".hearts");
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+
+  // Bright colorful hearts
+  const heartEmojis = ["💛", "❤️", "💖", "💌"];
+  heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+
+  heart.style.left = Math.random() * 100 + "vw";
+
+  // Slightly larger hearts for visibility
+  heart.style.fontSize = (16 + Math.random() * 20) + "px"; // 16px to 36px
+
+  // Brighter opacity
+  heart.style.opacity = 0.8 + Math.random() * 0.2; // 0.8 to 1.0
+
+  // Rotation for fun
+  heart.style.transform = `rotate(${Math.random() * 40 - 20}deg)`; // -20° to 20°
+
+  // Floating speed
+  heart.style.animationDuration = 6 + Math.random() * 4 + "s";
+
+  heartsContainer.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 10000);
+}
+
+setInterval(createHeart, 600);
+
+const sparkleContainer = document.createElement("div");
+sparkleContainer.className = "hearts"; // behind card, same as hearts container
+document.body.appendChild(sparkleContainer);
+
+for (let i = 0; i < 25; i++) {
+  const sparkle = document.createElement("div");
+  sparkle.className = "sparkle";
+  sparkle.style.top = Math.random() * 100 + "vh";
+  sparkle.style.left = Math.random() * 100 + "vw";
+  sparkle.style.animationDuration = 1 + Math.random() * 2 + "s";
+  sparkleContainer.appendChild(sparkle);
+}
+function showButtons() {
+  document.querySelector(".buttons").style.display = "flex";
+}
+function sendResponse(choice) {
+  const input = document.getElementById("formInput");
+  const form = document.getElementById("googleForm");
+
+  input.value = choice;
+  form.submit();
+
+  // If YES → show bouquet modal
+ if (choice.includes("Yes")) {
+  setTimeout(() => {
+    document.getElementById("yesModal").classList.add("show");
+    startPetals();
+
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.3;   // soft volume
+    music.play().catch(() => {});
+  }, 600);
+}
+  const modal = document.getElementById("yesModal");
+const bgMusic = document.getElementById("bgMusic");
+
+// OPEN modal
+function openYesModal() {
+  modal.style.display = "flex";
+
+  bgMusic.currentTime = 0;   // start from beginning
+  bgMusic.volume = 0.4;      // soft volume
+  bgMusic.play();
+}
+
+// CLOSE modal
+function closeYesModal() {
+  modal.style.display = "none";
+
+  bgMusic.pause();
+  bgMusic.currentTime = 0;   // reset song
+}
+
+
+
+  // disable buttons
+  document.querySelectorAll("button").forEach(btn => {
+    btn.disabled = true;
+    btn.style.opacity = "0.6";
+  });
+}
+function startPetals() {
+  const container = document.getElementById("petals-container");
+
+  for (let i = 0; i < 25; i++) {
+    const petal = document.createElement("div");
+    petal.className = "petal";
+    petal.textContent = "🌸";
+    petal.style.left = Math.random() * 100 + "vw";
+    petal.style.animationDuration = 5 + Math.random() * 5 + "s";
+    petal.style.fontSize = 14 + Math.random() * 10 + "px";
+    container.appendChild(petal);
+  }
+}
+function closeModal() {
+  const modal = document.getElementById("yesModal");
+  modal.classList.remove("show");
+
+  // re-enable buttons
+  document.querySelectorAll(".choice-btn").forEach(btn => {
+    btn.disabled = false;
+    btn.style.opacity = "1";
+    btn.style.cursor = "pointer";
+  });
+}
+
+function forceClose(e) {
+  if (e.target.id === "yesModal") {
+    closeModal();
+  }
+}
+function handleYesClick() {
+  openYesModal();              // open modal + play music
+  sendResponse("Yes 💗");      // send Google Form response
+}
