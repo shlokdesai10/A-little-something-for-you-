@@ -150,6 +150,9 @@ function openYesModal() {
   bgMusic.volume = 0.4;      // soft volume
   bgMusic.play();
 }
+const modal = document.getElementById("yesModal");
+const bgMusic = document.getElementById("bgMusic");
+
 
 // CLOSE modal
 function closeYesModal() {
@@ -160,13 +163,6 @@ function closeYesModal() {
 }
 
 
-
-  // disable buttons
-  document.querySelectorAll("button").forEach(btn => {
-    btn.disabled = true;
-    btn.style.opacity = "0.6";
-  });
-}
 function startPetals() {
   const container = document.getElementById("petals-container");
 
