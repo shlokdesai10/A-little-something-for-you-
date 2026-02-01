@@ -144,24 +144,15 @@ function sendResponse(choice) {
 
 // OPEN modal
 function openYesModal() {
-  modal.style.display = "flex";
-
-  bgMusic.currentTime = 0;   // start from beginning
-  bgMusic.volume = 0.4;      // soft volume
-  bgMusic.play();
+  modal.classList.add("show");
 }
-const modal = document.getElementById("yesModal");
-const bgMusic = document.getElementById("bgMusic");
-
 
 // CLOSE modal
 function closeYesModal() {
-  modal.style.display = "none";
-
+  modal.classList.remove("show");
   bgMusic.pause();
-  bgMusic.currentTime = 0;   // reset song
+  bgMusic.currentTime = 0;
 }
-
 
 function startPetals() {
   const container = document.getElementById("petals-container");
