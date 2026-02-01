@@ -1,3 +1,8 @@
+// ===== MODAL + MUSIC REFERENCES (IMPORTANT) =====
+const modal = document.getElementById("yesModal");
+const bgMusic = document.getElementById("bgMusic");
+
+// ===== TYPEWRITER TEXT =====
 const text = `
 Hey Khushi Mandeep Desai 🤍
 
@@ -19,9 +24,7 @@ not in a dramatic way,
 not in a rushed way…
 
 But from my heart.
-
 `;
-
 
 let i = 0;
 const speed = 30;
@@ -39,6 +42,7 @@ function typeText() {
 
 typeText();
 
+// ===== PROGRESS BAR =====
 function showProgress() {
   document.getElementById("progressBox").classList.remove("hidden");
 
@@ -62,41 +66,32 @@ function showFinal() {
   document.getElementById("final").classList.remove("hidden");
 }
 
+// ===== FLOATING HEARTS =====
 const heartsContainer = document.querySelector(".hearts");
 
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
 
-  // Bright colorful hearts
   const heartEmojis = ["💛", "❤️", "💖", "💌"];
   heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
 
   heart.style.left = Math.random() * 100 + "vw";
-
-  // Slightly larger hearts for visibility
-  heart.style.fontSize = (16 + Math.random() * 20) + "px"; // 16px to 36px
-
-  // Brighter opacity
-  heart.style.opacity = 0.8 + Math.random() * 0.2; // 0.8 to 1.0
-
-  // Rotation for fun
-  heart.style.transform = `rotate(${Math.random() * 40 - 20}deg)`; // -20° to 20°
-
-  // Floating speed
+  heart.style.fontSize = 16 + Math.random() * 20 + "px";
+  heart.style.opacity = 0.8 + Math.random() * 0.2;
+  heart.style.transform = `rotate(${Math.random() * 40 - 20}deg)`;
   heart.style.animationDuration = 6 + Math.random() * 4 + "s";
 
   heartsContainer.appendChild(heart);
 
-  setTimeout(() => {
-    heart.remove();
-  }, 10000);
+  setTimeout(() => heart.remove(), 10000);
 }
 
 setInterval(createHeart, 600);
 
+// ===== SPARKLES =====
 const sparkleContainer = document.createElement("div");
-sparkleContainer.className = "hearts"; // behind card, same as hearts container
+sparkleContainer.className = "hearts";
 document.body.appendChild(sparkleContainer);
 
 for (let i = 0; i < 25; i++) {
@@ -107,55 +102,11 @@ for (let i = 0; i < 25; i++) {
   sparkle.style.animationDuration = 1 + Math.random() * 2 + "s";
   sparkleContainer.appendChild(sparkle);
 }
-function showButtons() {
-  document.querySelector(".buttons").style.display = "flex";
-}
-function sendResponse(choice) {
-  console.log("Button clicked:", choice);
 
-  const input = document.getElementById("formInput");
-  const form = document.getElementById("googleForm");
-
-  input.value = choice;
-  form.submit();
-
-  if (choice.includes("Yes")) {
-    setTimeout(() => {
-      openYesModal();
-      startPetals();
-
-      const music = document.getElementById("bgMusic");
-      music.volume = 0.3;
-      music.currentTime = 0;
-      music.play().catch(() => {});
-    }, 600);
-  } else {
-    document.getElementById("response").innerText =
-      "That’s okay 🤍 Take all the time you need.";
-  }
-
-  // disable choice buttons
-  document.querySelectorAll(".choice-btn").forEach(btn => {
-    btn.disabled = true;
-    btn.style.opacity = "0.6";
-    btn.style.cursor = "not-allowed";
-  });
-}
-
-// OPEN modal
-function openYesModal() {
-  modal.classList.add("show");
-}
-
-// CLOSE modal
-function closeYesModal() {
-  modal.classList.remove("show");
-  bgMusic.pause();
-  bgMusic.currentTime = 0;
-}
-
+// ===== PETALS =====
 function startPetals() {
   const container = document.getElementById("petals-container");
+  container.innerHTML = "";
 
   for (let i = 0; i < 25; i++) {
     const petal = document.createElement("div");
@@ -167,26 +118,51 @@ function startPetals() {
     container.appendChild(petal);
   }
 }
-function closeModal() {
-  const modal = document.getElementById("yesModal");
-  modal.classList.remove("show");
 
-  // re-enable buttons
+// ===== MAIN BUTTON HANDLER =====
+function sendResponse(choice) {
+  console.log("Button clicked:", choice);
+
+  // Google Form submit
+  const input = document.getElementById("formInput");
+  const form = document.getElementById("googleForm");
+  input.value = choice;
+  form.submit();
+
+  if (choice.includes("Yes")) {
+    modal.classList.add("show");
+    startPetals();
+
+    bgMusic.currentTime = 0;
+    bgMusic.volume = 0.3;
+    bgMusic.play().catch(() => {});
+  } else {
+    document.getElementById("response").innerText =
+      "That’s okay 🤍 Take all the time you need.";
+  }
+
   document.querySelectorAll(".choice-btn").forEach(btn => {
-    btn.disabled = false;
-    btn.style.opacity = "1";
-    btn.style.cursor = "pointer";
+    btn.disabled = true;
+    btn.style.opacity = "0.6";
   });
 }
 
+// ===== CLOSE MODAL =====
+function closeModal() {
+  modal.classList.remove("show");
+
+  bgMusic.pause();
+  bgMusic.currentTime = 0;
+
+  document.querySelectorAll(".choice-btn").forEach(btn => {
+    btn.disabled = false;
+    btn.style.opacity = "1";
+  });
+}
+
+// ===== CLICK OUTSIDE TO CLOSE =====
 function forceClose(e) {
   if (e.target.id === "yesModal") {
     closeModal();
   }
-}
-function handleYesClick() {
-  console.log("YES clicked");
-
-  openYesModal();
-  sendResponse("Yes 💗");
 }
