@@ -4,24 +4,43 @@ const bgMusic = document.getElementById("bgMusic");
 const text = `
 Hey Khushi Mandeep Desai 🤍
 
-There’s something about you that has always stayed with me.
-The way your hair looks when you smile,
-the way your eyes quietly say so much without trying
-it’s honestly beautiful.
+Loving you was never loud or sudden.
+It didn’t happen in one moment —
+it happened slowly,
+through every conversation,
+every small laugh,
+every time you stayed when you didn’t have to.
 
-You have this softness,
-but also a strength that not everyone notices.
-Being around you just feels calm,
-like things make a little more sense.
+Somewhere along the way,
+you became my comfort,
+my safe place,
+the one person I look for even when I don’t realise I’m searching.
 
-I’ve made mistakes before,
-but my feelings for you were never one of them.
+It’s in the way your name feels familiar on my screen,
+in the way my day somehow feels incomplete without you in it,
+in the way I find myself wanting to share even the smallest things with you.
 
-So I just wanted to ask you something
-not in a dramatic way,
-not in a rushed way…
+And I know we’ve had our moments,
+i've made mistakes,
+i've hurt you in ways i never meant to…
+but through all of that,
+my feelings for you never really left.
 
-But from my heart.
+Because loving you was never something temporary for me.
+
+You make things feel softer.
+You make chaos feel calm.
+You make ordinary days feel like they matter.
+
+And if I’m being honest…
+having you in my life just feels right in a way nothing else ever has.
+
+So this isn’t me rushing anything,
+or asking for something new.
+
+This is just me choosing you again,
+with everything I feel,
+and everything I am.
 `;
 
 let i = 0;
