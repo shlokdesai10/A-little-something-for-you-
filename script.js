@@ -41,6 +41,7 @@ or asking for something new.
 This is just me choosing you again,
 with everything I feel,
 and everything I am.
+(And i am going to be your first kiss remember this)
 `;
 
 let i = 0;
